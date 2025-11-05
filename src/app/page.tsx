@@ -25,7 +25,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-16">
             <Link href="/estimate">
               <div className="group cursor-pointer h-full">
-                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-8 transition-all duration-300 h-full">
+                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-red-600">
                   <div className="relative z-10">
                     <div className="text-5xl mb-4">📐</div>
                     <h3 className="text-2xl font-bold text-theme-red-dark mb-3">
@@ -44,7 +44,7 @@ export default function Home() {
 
             <Link href="/design">
               <div className="group cursor-pointer h-full">
-                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-8 transition-all duration-300 h-full">
+                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-red-600">
                   <div className="relative z-10">
                     <div className="text-5xl mb-4">✏️</div>
                     <h3 className="text-2xl font-bold text-theme-red-dark mb-3">
@@ -63,7 +63,7 @@ export default function Home() {
 
             <Link href="/supervision">
               <div className="group cursor-pointer h-full">
-                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-8 transition-all duration-300 h-full">
+                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-red-600">
                   <div className="relative z-10">
                     <div className="text-5xl mb-4">🔍</div>
                     <h3 className="text-2xl font-bold text-theme-red-dark mb-3">
@@ -79,60 +79,6 @@ export default function Home() {
                 </div>
               </div>
             </Link>
-          </div>
-
-          <div className="max-w-4xl mx-auto mb-12">
-            <div className="card-base p-8">
-              <h2 className="text-2xl font-bold text-theme-primary mb-6">
-                📊 ข้อมูลอัตราคำนวณ
-              </h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-theme-light rounded-xl p-6 border border-theme">
-                  <h3 className="text-lg font-bold text-theme-red-dark mb-4">
-                    ✏️ อัตราค่าออกแบบ
-                  </h3>
-                  <div className="space-y-2 text-sm text-theme-primary">
-                    <div className="flex justify-between py-1.5">
-                      <span>ไม่ซับซ้อน:</span>
-                      <span className="font-medium">2.0% - 4.5%</span>
-                    </div>
-                    <div className="flex justify-between py-1.5">
-                      <span>ซับซ้อน:</span>
-                      <span className="font-medium">3.5% - 6.5%</span>
-                    </div>
-                    <div className="flex justify-between py-1.5">
-                      <span>ซับซ้อนมาก:</span>
-                      <span className="font-medium">4.0% - 8.5%</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-theme-light rounded-xl p-6 border border-theme">
-                  <h3 className="text-lg font-bold text-theme-red-dark mb-4">
-                    🔍 อัตราค่าคุมงาน
-                  </h3>
-                  <div className="space-y-2 text-sm text-theme-primary">
-                    <div className="flex justify-between py-1.5">
-                      <span>ไม่ซับซ้อน:</span>
-                      <span className="font-medium">0.5% - 2.5%</span>
-                    </div>
-                    <div className="flex justify-between py-1.5">
-                      <span>ซับซ้อน:</span>
-                      <span className="font-medium">0.5% - 3.5%</span>
-                    </div>
-                    <div className="flex justify-between py-1.5">
-                      <span>ซับซ้อนมาก:</span>
-                      <span className="font-medium">1.0% - 4.5%</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <p className="text-xs text-theme-secondary text-center">
-                * อัตราขึ้นอยู่กับขนาดโครงการ (ไม่เกิน 50 ล้าน ถึง 2,500+ ล้านบาท)
-              </p>
-            </div>
           </div>
 
           <div className="max-w-4xl mx-auto">
