@@ -9,32 +9,32 @@ export default function Home() {
       <Navbar />
       
       <main className="min-h-screen bg-white">
-        <div className="container mx-auto px-4 py-16">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-theme-primary mb-4">
+        <div className="container mx-auto px-3 md:px-4 py-8 md:py-16">
+          <div className="max-w-3xl mx-auto text-center mb-8 md:mb-12">
+            <h1 className="text-3xl md:text-5xl font-bold text-theme-primary mb-3 md:mb-4">
               ระบบประมาณราคา
             </h1>
-            <p className="text-xl text-theme-secondary mb-2">
+            <p className="text-base md:text-xl text-theme-secondary mb-2">
               ค่าออกแบบและค่าคุมงานก่อสร้าง
             </p>
-            <p className="text-sm text-theme-secondary">
+            <p className="text-xs md:text-sm text-theme-secondary px-2">
               ตามกฎกระทรวง กำหนดอัตราค่าจ้างผู้ให้บริการงานจ้างออกแบบหรือควบคุมงานก่อสร้าง พ.ศ. 2562
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 max-w-5xl mx-auto mb-12 md:mb-16 px-1 md:px-0">
             <Link href="/estimate">
               <div className="group cursor-pointer h-full">
-                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-red-600">
+                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-5 md:p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-red-600">
                   <div className="relative z-10">
-                    <div className="text-5xl mb-4">📐</div>
-                    <h3 className="text-2xl font-bold text-theme-red-dark mb-3">
+                    <div className="text-4xl md:text-5xl mb-3 md:mb-4">📐</div>
+                    <h3 className="text-xl md:text-2xl font-bold text-theme-red-dark mb-2 md:mb-3">
                       ประเมินราคา
                     </h3>
-                    <p className="text-theme-secondary mb-4 text-sm leading-relaxed">
+                    <p className="text-theme-secondary mb-3 md:mb-4 text-xs md:text-sm leading-relaxed">
                       ประเมินราคาก่อสร้างตามประเภทอาคารและพื้นที่
                     </p>
-                    <div className="inline-flex items-center gap-2 text-theme-red-dark text-sm font-medium">
+                    <div className="inline-flex items-center gap-2 text-theme-red-dark text-xs md:text-sm font-medium">
                       เริ่มได้เลย →
                     </div>
                   </div>
@@ -44,16 +44,16 @@ export default function Home() {
 
             <Link href="/design">
               <div className="group cursor-pointer h-full">
-                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-red-600">
+                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-5 md:p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-red-600">
                   <div className="relative z-10">
-                    <div className="text-5xl mb-4">✏️</div>
-                    <h3 className="text-2xl font-bold text-theme-red-dark mb-3">
+                    <div className="text-4xl md:text-5xl mb-3 md:mb-4">✏️</div>
+                    <h3 className="text-xl md:text-2xl font-bold text-theme-red-dark mb-2 md:mb-3">
                       คำนวณค่าออกแบบ
                     </h3>
-                    <p className="text-theme-secondary mb-4 text-sm leading-relaxed">
+                    <p className="text-theme-secondary mb-3 md:mb-4 text-xs md:text-sm leading-relaxed">
                       คำนวณค่าบริการออกแบบตามราคาโครงการและระดับความซับซ้อน
                     </p>
-                    <div className="inline-flex items-center gap-2 text-theme-red-dark text-sm font-medium">
+                    <div className="inline-flex items-center gap-2 text-theme-red-dark text-xs md:text-sm font-medium">
                       เริ่มคำนวณ →
                     </div>
                   </div>
@@ -63,16 +63,16 @@ export default function Home() {
 
             <Link href="/supervision">
               <div className="group cursor-pointer h-full">
-                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-red-600">
+                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-5 md:p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-red-600">
                   <div className="relative z-10">
-                    <div className="text-5xl mb-4">🔍</div>
-                    <h3 className="text-2xl font-bold text-theme-red-dark mb-3">
+                    <div className="text-4xl md:text-5xl mb-3 md:mb-4">🔍</div>
+                    <h3 className="text-xl md:text-2xl font-bold text-theme-red-dark mb-2 md:mb-3">
                       คำนวณค่าคุมงาน
                     </h3>
-                    <p className="text-theme-secondary mb-4 text-sm leading-relaxed">
+                    <p className="text-theme-secondary mb-3 md:mb-4 text-xs md:text-sm leading-relaxed">
                       คำนวณค่าบริการคุมงานก่อสร้างตามราคาโครงการและระดับความซับซ้อน
                     </p>
-                    <div className="inline-flex items-center gap-2 text-theme-red-dark text-sm font-medium">
+                    <div className="inline-flex items-center gap-2 text-theme-red-dark text-xs md:text-sm font-medium">
                       เริ่มคำนวณ →
                     </div>
                   </div>
