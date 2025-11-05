@@ -195,19 +195,19 @@ export default function Calculator({ serviceType }: CalculatorProps) {
           </div>
 
           {/* Specialty Breakdown Table */}
-          <div className="bg-theme-light card-base p-6 mb-6 border-2 border-theme-gray-medium">
-            <h4 className="text-lg font-bold text-theme-primary mb-4 flex items-center gap-2">
+          <div className="bg-theme-light card-base p-3 md:p-6 mb-6 border-2 border-theme-gray-medium">
+            <h4 className="text-base md:text-lg font-bold text-theme-primary mb-3 md:mb-4 flex items-center gap-2">
               <span>📋</span> แบ่งรายละเอียดตามสาขาวิชา
             </h4>
 
             {/* Summary Table */}
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+            <div className="overflow-x-auto -mx-3 md:mx-0">
+              <table className="w-full text-xs md:text-sm">
                 <thead>
                   <tr className="bg-gradient-to-r from-red-600 to-red-700 text-white">
-                    <th className="px-4 py-3 text-left font-bold rounded-tl-lg">สาขาวิชา</th>
-                    <th className="px-4 py-3 text-center font-bold">%</th>
-                    <th className="px-4 py-3 text-right font-bold rounded-tr-lg">ค่า{serviceName}</th>
+                    <th className="px-2 md:px-4 py-2 md:py-3 text-left font-bold rounded-tl-lg text-xs md:text-sm">สาขาวิชา</th>
+                    <th className="px-2 md:px-4 py-2 md:py-3 text-center font-bold text-xs md:text-sm">%</th>
+                    <th className="px-2 md:px-4 py-2 md:py-3 text-right font-bold rounded-tr-lg text-xs md:text-sm">ค่า{serviceName}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -218,27 +218,27 @@ export default function Calculator({ serviceType }: CalculatorProps) {
                         index % 2 === 0 ? 'bg-white' : 'bg-theme-gray-light'
                       } hover:bg-red-50 transition-colors`}
                     >
-                      <td className="px-4 py-3 font-semibold text-theme-primary">
+                      <td className="px-2 md:px-4 py-2 md:py-3 font-semibold text-theme-primary text-xs md:text-sm">
                         {item.specialty}
                       </td>
-                      <td className="px-4 py-3 text-center">
-                        <span className="badge-primary">
+                      <td className="px-2 md:px-4 py-2 md:py-3 text-center">
+                        <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-full font-bold text-xs md:text-sm">
                           {item.percentage}%
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-right font-bold text-theme-red-dark">
+                      <td className="px-2 md:px-4 py-2 md:py-3 text-right font-bold text-theme-red-dark text-xs md:text-sm">
                         {Math.round((result.price * item.percentage) / 100).toLocaleString('th-TH')} บาท
                       </td>
                     </tr>
                   ))}
                   <tr className="bg-gradient-to-r from-red-600 to-red-700 font-bold text-white rounded-b-lg">
-                    <td className="px-4 py-3 rounded-bl-lg">รวมทั้งสิ้น</td>
-                    <td className="px-4 py-3 text-center">
-                      <span className="badge-primary">
+                    <td className="px-2 md:px-4 py-2 md:py-3 rounded-bl-lg text-xs md:text-sm">รวมทั้งสิ้น</td>
+                    <td className="px-2 md:px-4 py-2 md:py-3 text-center">
+                      <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 bg-white text-red-600 rounded-full font-bold text-xs md:text-sm">
                         100%
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-right rounded-br-lg">
+                    <td className="px-2 md:px-4 py-2 md:py-3 text-right rounded-br-lg text-xs md:text-sm">
                       {result.price.toLocaleString('th-TH')} บาท
                     </td>
                   </tr>
@@ -247,10 +247,10 @@ export default function Calculator({ serviceType }: CalculatorProps) {
             </div>
 
             {/* Quick Edit Button */}
-            <div className="mt-4">
+            <div className="mt-3 md:mt-4">
               <button
                 onClick={() => setShowDialog(true)}
-                className="btn-primary w-full text-sm"
+                className="btn-primary w-full text-xs md:text-sm py-2 md:py-3"
               >
                 ⚙️ ปรับปรุงเปอร์เซ็นต์
               </button>
