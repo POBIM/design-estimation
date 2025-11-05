@@ -74,13 +74,13 @@ export default function SpecialtyDialog({
       <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto card-base">
           {/* Header */}
-          <div className="bg-gradient-to-r from-red-700 to-red-600 text-white p-6 sticky top-0">
+          <div className="bg-gradient-to-r from-gray-800 to-black text-white p-6 sticky top-0">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">⚙️</span>
                 <div>
                   <h2 className="text-xl font-bold">ปรับปรุงสาขาวิชา</h2>
-                  <p className="text-red-100 text-sm mt-1">ปรับเปอร์เซ็นต์ตามต้องการ</p>
+                  <p className="text-gray-300 text-sm mt-1">ปรับเปอร์เซ็นต์ตามต้องการ</p>
                 </div>
               </div>
               <button
@@ -98,13 +98,13 @@ export default function SpecialtyDialog({
             {tempData.map((item, index) => (
               <div
                 key={index}
-                className="bg-theme-gray-light rounded-lg p-4 border border-theme hover:border-red-600 transition-colors"
+                className="bg-theme-gray-light rounded-lg p-4 border border-theme hover:border-gray-800 transition-colors"
               >
                 <div className="flex items-center justify-between mb-3">
                   <label className="font-semibold text-theme-primary text-sm">
                     {item.specialty}
                   </label>
-                  <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-2 border-2 border-red-600">
+                  <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-2 border-2 border-gray-800">
                     <input
                       type="number"
                       value={item.percentage}
@@ -121,7 +121,7 @@ export default function SpecialtyDialog({
                 {/* Progress Bar */}
                 <div className="w-full bg-theme-gray-medium rounded-full h-2 overflow-hidden">
                   <div
-                    className="bg-gradient-to-r from-red-600 to-red-700 h-full transition-all"
+                    className="bg-gradient-to-r from-gray-800 to-black h-full transition-all"
                     style={{ 
                       width: `${item.percentage}%`,
                       transitionDuration: '300ms'
@@ -134,8 +134,8 @@ export default function SpecialtyDialog({
             {/* Total Section */}
             <div className={`rounded-lg p-4 border-2 transition-all ${
               isValid
-                ? 'bg-red-50 border-red-300'
-                : 'bg-red-100 border-red-400'
+                ? 'bg-gray-50 border-gray-300'
+                : 'bg-gray-100 border-gray-400'
             }`}>
               <div className="flex items-center justify-between">
                 <span className="font-bold text-theme-primary">รวมทั้งหมด:</span>
@@ -155,8 +155,8 @@ export default function SpecialtyDialog({
             </div>
 
             {/* Info Box */}
-            <div className="bg-red-50 rounded-lg p-3 border border-red-200">
-              <p className="text-xs text-red-800">
+            <div className="bg-gray-100 rounded-lg p-3 border border-gray-300">
+              <p className="text-xs text-gray-800">
                 <span className="font-bold">💡 หมายเหตุ:</span> ผลรวมต้องเท่ากับ 100% พอดี
               </p>
             </div>

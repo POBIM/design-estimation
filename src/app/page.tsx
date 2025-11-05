@@ -25,7 +25,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 max-w-5xl mx-auto mb-12 md:mb-16 px-1 md:px-0">
             <Link href="/estimate">
               <div className="group cursor-pointer h-full">
-                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-5 md:p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-red-600">
+                <div className="card-base border-l-4 border-l-gray-800 hover:shadow-lg p-5 md:p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-gray-800">
                   <div className="relative z-10">
                     <div className="text-4xl md:text-5xl mb-3 md:mb-4">📐</div>
                     <h3 className="text-xl md:text-2xl font-bold text-theme-red-dark mb-2 md:mb-3">
@@ -44,7 +44,7 @@ export default function Home() {
 
             <Link href="/design">
               <div className="group cursor-pointer h-full">
-                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-5 md:p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-red-600">
+                <div className="card-base border-l-4 border-l-gray-800 hover:shadow-lg p-5 md:p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-gray-800">
                   <div className="relative z-10">
                     <div className="text-4xl md:text-5xl mb-3 md:mb-4">✏️</div>
                     <h3 className="text-xl md:text-2xl font-bold text-theme-red-dark mb-2 md:mb-3">
@@ -63,7 +63,7 @@ export default function Home() {
 
             <Link href="/supervision">
               <div className="group cursor-pointer h-full">
-                <div className="card-base border-l-4 border-l-red-600 hover:shadow-lg p-5 md:p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-red-600">
+                <div className="card-base border-l-4 border-l-gray-800 hover:shadow-lg p-5 md:p-8 transition-all duration-300 h-full bg-gradient-to-br from-white to-theme-light border-2 border-gray-800">
                   <div className="relative z-10">
                     <div className="text-4xl md:text-5xl mb-3 md:mb-4">🔍</div>
                     <h3 className="text-xl md:text-2xl font-bold text-theme-red-dark mb-2 md:mb-3">

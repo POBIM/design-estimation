@@ -57,7 +57,7 @@ export default function Calculator({ serviceType }: CalculatorProps) {
 
   const complexityOptions = [
     { value: 'simple' as const, label: 'ไม่ซับซ้อน', color: 'bg-theme-gray-light border-theme-gray-medium hover:bg-theme-gray-medium', activeColor: 'bg-theme-gray-medium border-theme-gray-darker' },
-    { value: 'complex' as const, label: 'ซับซ้อน', color: 'bg-red-100 border-red-300 hover:bg-red-200', activeColor: 'bg-red-200 border-red-600' },
+    { value: 'complex' as const, label: 'ซับซ้อน', color: 'bg-gray-100 border-gray-300 hover:bg-gray-200', activeColor: 'bg-gray-200 border-gray-600' },
     { value: 'veryComplex' as const, label: 'ซับซ้อนมาก', color: 'bg-theme-red-light border-theme-red-medium hover:bg-theme-red-medium', activeColor: 'bg-theme-red-medium border-theme-red-dark' },
   ];
 
@@ -204,7 +204,7 @@ export default function Calculator({ serviceType }: CalculatorProps) {
             <div className="overflow-x-auto -mx-3 md:mx-0">
               <table className="w-full text-xs md:text-sm">
                 <thead>
-                  <tr className="bg-gradient-to-r from-red-600 to-red-700 text-white">
+                  <tr className="bg-gradient-to-r from-gray-800 to-black text-white">
                     <th className="px-2 md:px-4 py-2 md:py-3 text-left font-bold rounded-tl-lg text-xs md:text-sm">สาขาวิชา</th>
                     <th className="px-2 md:px-4 py-2 md:py-3 text-center font-bold text-xs md:text-sm">%</th>
                     <th className="px-2 md:px-4 py-2 md:py-3 text-right font-bold rounded-tr-lg text-xs md:text-sm">ค่า{serviceName}</th>
@@ -216,13 +216,13 @@ export default function Calculator({ serviceType }: CalculatorProps) {
                       key={index}
                       className={`border-b border-theme-gray-medium ${
                         index % 2 === 0 ? 'bg-white' : 'bg-theme-gray-light'
-                      } hover:bg-red-50 transition-colors`}
+                      } hover:bg-gray-100 transition-colors`}
                     >
                       <td className="px-2 md:px-4 py-2 md:py-3 font-semibold text-theme-primary text-xs md:text-sm">
                         {item.specialty}
                       </td>
                       <td className="px-2 md:px-4 py-2 md:py-3 text-center">
-                        <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-full font-bold text-xs md:text-sm">
+                        <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 bg-gradient-to-r from-gray-800 to-black text-white rounded-full font-bold text-xs md:text-sm">
                           {item.percentage}%
                         </span>
                       </td>
@@ -231,10 +231,10 @@ export default function Calculator({ serviceType }: CalculatorProps) {
                       </td>
                     </tr>
                   ))}
-                  <tr className="bg-gradient-to-r from-red-600 to-red-700 font-bold text-white rounded-b-lg">
+                  <tr className="bg-gradient-to-r from-gray-800 to-black font-bold text-white rounded-b-lg">
                     <td className="px-2 md:px-4 py-2 md:py-3 rounded-bl-lg text-xs md:text-sm">รวมทั้งสิ้น</td>
                     <td className="px-2 md:px-4 py-2 md:py-3 text-center">
-                      <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 bg-white text-red-600 rounded-full font-bold text-xs md:text-sm">
+                      <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 bg-white text-gray-800 rounded-full font-bold text-xs md:text-sm">
                         100%
                       </span>
                     </td>

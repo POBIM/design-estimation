@@ -64,7 +64,7 @@ export default function Navbar() {
               <span
                 className={`px-2 md:px-4 py-2 rounded-lg font-medium transition flex items-center gap-2 ${
                   isActive(link.href)
-                    ? 'bg-gradient-to-r from-red-600 to-red-700 text-white'
+                    ? 'bg-gradient-to-r from-gray-800 to-black text-white'
                     : 'text-theme-primary hover:bg-theme-light'
                 }`}
               >

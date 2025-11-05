@@ -141,7 +141,7 @@ export default function ConstructionEstimator() {
                     onClick={() => setPriceLevel(level)}
                     className={`py-2 md:py-3 px-3 md:px-4 rounded-lg font-semibold transition text-sm md:text-base ${
                       priceLevel === level
-                        ? 'bg-gradient-to-r from-red-600 to-red-700 text-white'
+                        ? 'bg-gradient-to-r from-gray-800 to-black text-white'
                         : 'bg-theme-gray-light text-theme-primary hover:bg-theme-gray-medium border border-theme-gray-medium'
                     }`}
                   >
@@ -203,7 +203,7 @@ export default function ConstructionEstimator() {
 
                   <div className="pt-3 md:pt-4 border-t border-theme-gray-medium">
                     <p className="text-theme-secondary text-xs md:text-sm mb-2">ราคาประมาณการก่อสร้าง</p>
-                    <p className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-red-600 to-red-700 bg-clip-text text-transparent">
+                    <p className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-gray-800 to-black bg-clip-text text-transparent">
                       ฿{result.estimatedCost.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                       })}

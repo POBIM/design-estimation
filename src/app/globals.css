@@ -8,7 +8,7 @@ html.dark {
   --background: #ffffff !important;
   --foreground: #171717 !important;
   
-  /* Pastel Theme: White, Gray, Dark Red */
+  /* Pastel Theme: White, Gray, Dark Black */
   --color-white: #ffffff;
   --color-white-soft: #f9f9f9;
   --color-gray-light: #f5f5f5;
@@ -16,11 +16,11 @@ html.dark {
   --color-gray-dark: #9ca3af;
   --color-gray-darker: #6b7280;
   
-  /* Red Tones */
-  --color-red-light: #ffe5e5;
-  --color-red-medium: #ffb3b3;
-  --color-red-dark: #c41e3a;
-  --color-red-darker: #8b0000;
+  /* Black Tones (replaced from Red) */
+  --color-red-light: #f0f0f0;
+  --color-red-medium: #d9d9d9;
+  --color-red-dark: #1a1a1a;
+  --color-red-darker: #000000;
   
   /* Accent Neutrals */
   --color-text-primary: #2d2d2d;
@@ -105,7 +105,7 @@ body {
 
 /* Button Styles */
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-red-dark) 0%, #a01a2f 100%);
+  background: linear-gradient(135deg, var(--color-red-dark) 0%, #2a2a2a 100%);
   color: white;
   font-weight: 600;
   padding: 0.875rem 1.5rem;
@@ -116,8 +116,8 @@ body {
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--color-red-darker) 0%, #8b0000 100%);
-  box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
+  background: linear-gradient(135deg, var(--color-red-darker) 0%, #000000 100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
 }
 
@@ -173,36 +173,24 @@ body {
 .input-theme:focus {
   outline: none;
   border-color: var(--color-red-dark);
-  box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1);
+  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
 }
 
 /* Badge Styles */
 .badge-primary {
-  background: linear-gradient(135deg, var(--color-red-dark) 0%, #a01a2f 100%);
-  color: white;
-  padding: 0.375rem 0.875rem;
-  border-radius: 9999px;
+  background-color: #e5e5e5;
+  color: var(--color-red-dark);
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
   font-size: 0.875rem;
   font-weight: 600;
-  display: inline-block;
 }
 
-.badge-success {
-  background-color: #10b981;
-  color: white;
-  padding: 0.375rem 0.875rem;
-  border-radius: 9999px;
+.badge-secondary {
+  background-color: var(--color-gray-light);
+  color: var(--color-gray-darker);
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
   font-size: 0.875rem;
   font-weight: 600;
-  display: inline-block;
-}
-
-.badge-error {
-  background-color: #ef4444;
-  color: white;
-  padding: 0.375rem 0.875rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  display: inline-block;
 }
