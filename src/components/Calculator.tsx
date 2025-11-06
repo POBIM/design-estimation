@@ -166,7 +166,7 @@ export default function Calculator({ serviceType, workCategory, onWorkCategoryCh
                   onClick={() => setComplexity(level)}
                   className={`p-4 rounded-xl font-semibold transition-all duration-200 border-2 ${
                     complexity === level
-                      ? 'border-gray-800 bg-gray-100 scale-105'
+                      ? 'border-gray-800 bg-black text-white scale-105'
                       : 'border-theme-gray-medium bg-white hover:border-gray-600'
                   }`}
                 >
@@ -187,7 +187,7 @@ export default function Calculator({ serviceType, workCategory, onWorkCategoryCh
                 onClick={() => setRailSubType('electric-highspeed')}
                 className={`p-4 rounded-xl font-semibold transition-all duration-200 border-2 ${
                   railSubType === 'electric-highspeed'
-                    ? 'border-gray-800 bg-gray-100 scale-105'
+                    ? 'border-gray-800 bg-black text-white scale-105'
                     : 'border-theme-gray-medium bg-white hover:border-gray-600'
                 }`}
               >
@@ -197,7 +197,7 @@ export default function Calculator({ serviceType, workCategory, onWorkCategoryCh
                 onClick={() => setRailSubType('longdistance-double')}
                 className={`p-4 rounded-xl font-semibold transition-all duration-200 border-2 ${
                   railSubType === 'longdistance-double'
-                    ? 'border-gray-800 bg-gray-100 scale-105'
+                    ? 'border-gray-800 bg-black text-white scale-105'
                     : 'border-theme-gray-medium bg-white hover:border-gray-600'
                 }`}
               >
