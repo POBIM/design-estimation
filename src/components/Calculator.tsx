@@ -1,11 +1,19 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { calculatePrice } from '@/utils/calculator';
 import SpecialtyDialog from './SpecialtyDialog';
+import WorkCategorySelector from './WorkCategorySelector';
+import {
+  WorkCategoryId,
+  calculateRate,
+  getWorkCategory,
+  ComplexityLevel,
+} from '@/utils/workCategoryData';
 
 interface CalculatorProps {
   serviceType: 'design' | 'supervision';
+  workCategory: WorkCategoryId;
+  onWorkCategoryChange: (categoryId: WorkCategoryId) => void;
 }
 
 interface SpecialtyCalculation {
@@ -13,19 +21,34 @@ interface SpecialtyCalculation {
   percentage: number;
 }
 
-const specialties: SpecialtyCalculation[] = [
-  { specialty: 'สถาปัตยกรรม', percentage: 40 },
-  { specialty: 'โครงสร้าง', percentage: 30 },
-  { specialty: 'ระบบไฟฟ้า', percentage: 17 },
-  { specialty: 'ระบบสุขาภิบาล', percentage: 13 },
-];
+interface CalculationResult {
+  price: number;
+  rate: number;
+  projectPrice: number;
+  categoryName: string;
+  complexity?: ComplexityLevel;
+}
 
-export default function Calculator({ serviceType }: CalculatorProps) {
+export default function Calculator({ serviceType, workCategory, onWorkCategoryChange }: CalculatorProps) {
   const [projectPrice, setProjectPrice] = useState<string>('');
-  const [complexity, setComplexity] = useState<'simple' | 'complex' | 'veryComplex'>('simple');
-  const [result, setResult] = useState<any>(null);
-  const [specialtiesData, setSpecialtiesData] = useState<SpecialtyCalculation[]>(specialties);
+  const [result, setResult] = useState<CalculationResult | null>(null);
   const [showDialog, setShowDialog] = useState(false);
+  const [complexity, setComplexity] = useState<ComplexityLevel>('simple');
+
+  // Get category data
+  const category = getWorkCategory(workCategory);
+  const [specialtiesData, setSpecialtiesData] = useState<SpecialtyCalculation[]>(
+    category.specialtyDistribution || []
+  );
+
+  // Update specialties when category changes
+  useEffect(() => {
+    const newCategory = getWorkCategory(workCategory);
+    if (newCategory.specialtyDistribution) {
+      setSpecialtiesData(newCategory.specialtyDistribution);
+    }
+    setComplexity('simple');
+  }, [workCategory]);
 
   // Read estimated cost from localStorage on component mount
   useEffect(() => {
@@ -44,9 +67,18 @@ export default function Calculator({ serviceType }: CalculatorProps) {
       return;
     }
 
-    const priceInMillion = priceInBaht / 1000000;
-    const calculation = calculatePrice(priceInMillion, serviceType, complexity);
-    setResult(calculation);
+    // Use new calculation based on work category
+    const selectedComplexity = category.supportsComplexity ? complexity : undefined;
+    const { rate } = calculateRate(workCategory, priceInBaht, serviceType, selectedComplexity);
+    const feeAmount = (priceInBaht * rate) / 100;
+
+    setResult({
+      price: feeAmount,
+      rate: rate,
+      projectPrice: priceInBaht,
+      categoryName: category.name,
+      complexity: selectedComplexity,
+    });
   };
 
   const handleSpecialtyChange = (index: number, value: number) => {
@@ -55,11 +87,11 @@ export default function Calculator({ serviceType }: CalculatorProps) {
     setSpecialtiesData(newData);
   };
 
-  const complexityOptions = [
-    { value: 'simple' as const, label: 'ไม่ซับซ้อน', color: 'bg-theme-gray-light border-theme-gray-medium hover:bg-theme-gray-medium', activeColor: 'bg-theme-gray-medium border-theme-gray-darker' },
-    { value: 'complex' as const, label: 'ซับซ้อน', color: 'bg-gray-100 border-gray-300 hover:bg-gray-200', activeColor: 'bg-gray-200 border-gray-600' },
-    { value: 'veryComplex' as const, label: 'ซับซ้อนมาก', color: 'bg-theme-red-light border-theme-red-medium hover:bg-theme-red-medium', activeColor: 'bg-theme-red-medium border-theme-red-dark' },
-  ];
+  const complexityLabels: Record<ComplexityLevel, string> = {
+    simple: 'ไม่ซับซ้อน',
+    complex: 'ซับซ้อน',
+    veryComplex: 'ซับซ้อนมาก',
+  };
 
   const serviceName = serviceType === 'design' ? 'ค่าออกแบบ' : 'ค่าคุมงาน';
   const serviceIcon = serviceType === 'design' ? '✏️' : '🔍';
@@ -74,9 +106,17 @@ export default function Calculator({ serviceType }: CalculatorProps) {
               คำนวณ{serviceName}
             </h2>
             <p className="text-theme-secondary text-sm mt-1">
-              กรุณากรอกราคาโครงการและเลือกระดับความซับซ้อน
+              เลือกหมวดงานและกรอกราคาโครงการ
             </p>
           </div>
+        </div>
+
+        {/* Work Category Selector */}
+        <div className="mb-6">
+          <WorkCategorySelector
+            value={workCategory}
+            onChange={onWorkCategoryChange}
+          />
         </div>
 
         {/* Project Price Input */}
@@ -108,27 +148,28 @@ export default function Calculator({ serviceType }: CalculatorProps) {
           )}
         </div>
 
-        {/* Complexity Selection */}
-        <div className="mb-8">
-          <label className="block text-theme-primary font-semibold mb-3 text-base">
-            ระดับความซับซ้อนของโครงการ <span className="text-theme-red-dark">*</span>
-          </label>
-          <div className="grid grid-cols-3 gap-4">
-            {complexityOptions.map((option) => (
-              <button
-                key={option.value}
-                onClick={() => setComplexity(option.value)}
-                className={`p-4 rounded-xl font-semibold transition-all duration-200 border-2 ${
-                  complexity === option.value
-                    ? `${option.activeColor} ring-2 ring-red-600 scale-105`
-                    : `${option.color}`
-                }`}
-              >
-                {option.label}
-              </button>
-            ))}
+        {category.supportsComplexity && (
+          <div className="mb-6">
+            <label className="block text-theme-primary font-semibold mb-3 text-base">
+              ระดับความซับซ้อนของโครงการ
+            </label>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {(['simple', 'complex', 'veryComplex'] as ComplexityLevel[]).map((level) => (
+                <button
+                  key={level}
+                  onClick={() => setComplexity(level)}
+                  className={`p-4 rounded-xl font-semibold transition-all duration-200 border-2 ${
+                    complexity === level
+                      ? 'border-gray-800 bg-gray-100 scale-105'
+                      : 'border-theme-gray-medium bg-white hover:border-gray-600'
+                  }`}
+                >
+                  {complexityLabels[level]}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Calculate Button */}
         <button
@@ -159,21 +200,29 @@ export default function Calculator({ serviceType }: CalculatorProps) {
           <div className="bg-theme-light card-base p-6 mb-6">
             <div className="space-y-3">
               <div className="flex justify-between items-center pb-3 border-b border-theme">
+                <span className="text-theme-secondary font-medium text-sm">หมวดงาน:</span>
+                <span className="badge-primary">
+                  {result.categoryName}
+                </span>
+              </div>
+              {category.supportsComplexity && result.complexity && (
+                <div className="flex justify-between items-center pb-3 border-b border-theme">
+                  <span className="text-theme-secondary font-medium text-sm">ระดับความซับซ้อน:</span>
+                  <span className="badge-primary">
+                    {complexityLabels[result.complexity]}
+                  </span>
+                </div>
+              )}
+              <div className="flex justify-between items-center pb-3 border-b border-theme">
                 <span className="text-theme-secondary font-medium text-sm">ราคาโครงการ:</span>
                 <span className="text-lg font-bold text-theme-primary">
                   {parseFloat(projectPrice).toLocaleString('th-TH')} บาท
                 </span>
               </div>
               <div className="flex justify-between items-center pb-3 border-b border-theme">
-                <span className="text-theme-secondary font-medium text-sm">ระดับความซับซ้อน:</span>
-                <span className="badge-primary">
-                  {result.complexityLabel}
-                </span>
-              </div>
-              <div className="flex justify-between items-center pb-3 border-b border-theme">
                 <span className="text-theme-secondary font-medium text-sm">อัตราคำนวณ:</span>
                 <span className="text-base font-semibold text-theme-red-dark">
-                  {result.percentage}%
+                  {result.rate}%
                 </span>
               </div>
               <div className="pt-2 flex justify-between items-center">
@@ -185,13 +234,6 @@ export default function Calculator({ serviceType }: CalculatorProps) {
                 </span>
               </div>
             </div>
-          </div>
-
-          {/* Rate Information */}
-          <div className="bg-theme-gray-light card-base p-4 mb-6">
-            <p className="text-xs text-theme-primary">
-              <span className="font-semibold">📌 เกณฑ์:</span> {result.description}
-            </p>
           </div>
 
           {/* Specialty Breakdown Table */}

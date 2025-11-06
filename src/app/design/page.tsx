@@ -1,7 +1,13 @@
+'use client';
+
+import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Calculator from '@/components/Calculator';
+import { WorkCategoryId } from '@/utils/workCategoryData';
 
 export default function DesignPage() {
+  const [workCategory, setWorkCategory] = useState<WorkCategoryId>('architecture');
+
   return (
     <>
       <Navbar />
@@ -9,7 +15,11 @@ export default function DesignPage() {
       <main className="min-h-screen bg-white py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <Calculator serviceType="design" />
+            <Calculator 
+              serviceType="design" 
+              workCategory={workCategory}
+              onWorkCategoryChange={setWorkCategory}
+            />
           </div>
         </div>
       </main>
