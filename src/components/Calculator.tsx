@@ -8,6 +8,7 @@ import {
   calculateRate,
   getWorkCategory,
   ComplexityLevel,
+  RailTransportSubType,
 } from '@/utils/workCategoryData';
 
 interface CalculatorProps {
@@ -27,6 +28,7 @@ interface CalculationResult {
   projectPrice: number;
   categoryName: string;
   complexity?: ComplexityLevel;
+  subType?: RailTransportSubType;
 }
 
 export default function Calculator({ serviceType, workCategory, onWorkCategoryChange }: CalculatorProps) {
@@ -34,6 +36,7 @@ export default function Calculator({ serviceType, workCategory, onWorkCategoryCh
   const [result, setResult] = useState<CalculationResult | null>(null);
   const [showDialog, setShowDialog] = useState(false);
   const [complexity, setComplexity] = useState<ComplexityLevel>('simple');
+  const [railSubType, setRailSubType] = useState<RailTransportSubType>('electric-highspeed');
 
   // Get category data
   const category = getWorkCategory(workCategory);
@@ -48,6 +51,7 @@ export default function Calculator({ serviceType, workCategory, onWorkCategoryCh
       setSpecialtiesData(newCategory.specialtyDistribution);
     }
     setComplexity('simple');
+    setRailSubType('electric-highspeed');
   }, [workCategory]);
 
   // Read estimated cost from localStorage on component mount
@@ -69,7 +73,8 @@ export default function Calculator({ serviceType, workCategory, onWorkCategoryCh
 
     // Use new calculation based on work category
     const selectedComplexity = category.supportsComplexity ? complexity : undefined;
-    const { rate } = calculateRate(workCategory, priceInBaht, serviceType, selectedComplexity);
+    const selectedSubType = category.supportsSubType ? railSubType : undefined;
+    const { rate } = calculateRate(workCategory, priceInBaht, serviceType, selectedComplexity, selectedSubType);
     const feeAmount = (priceInBaht * rate) / 100;
 
     setResult({
@@ -78,6 +83,7 @@ export default function Calculator({ serviceType, workCategory, onWorkCategoryCh
       projectPrice: priceInBaht,
       categoryName: category.name,
       complexity: selectedComplexity,
+      subType: selectedSubType,
     });
   };
 
@@ -171,6 +177,36 @@ export default function Calculator({ serviceType, workCategory, onWorkCategoryCh
           </div>
         )}
 
+        {category.supportsSubType && (
+          <div className="mb-6">
+            <label className="block text-theme-primary font-semibold mb-3 text-base">
+              ประเภทงานระบบราง
+            </label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <button
+                onClick={() => setRailSubType('electric-highspeed')}
+                className={`p-4 rounded-xl font-semibold transition-all duration-200 border-2 ${
+                  railSubType === 'electric-highspeed'
+                    ? 'border-gray-800 bg-gray-100 scale-105'
+                    : 'border-theme-gray-medium bg-white hover:border-gray-600'
+                }`}
+              >
+                🚄 รถไฟฟ้า / ความเร็วสูง
+              </button>
+              <button
+                onClick={() => setRailSubType('longdistance-double')}
+                className={`p-4 rounded-xl font-semibold transition-all duration-200 border-2 ${
+                  railSubType === 'longdistance-double'
+                    ? 'border-gray-800 bg-gray-100 scale-105'
+                    : 'border-theme-gray-medium bg-white hover:border-gray-600'
+                }`}
+              >
+                🚂 รถไฟทางไกล / รถไฟคู่
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Calculate Button */}
         <button
           onClick={handleCalculate}
@@ -210,6 +246,14 @@ export default function Calculator({ serviceType, workCategory, onWorkCategoryCh
                   <span className="text-theme-secondary font-medium text-sm">ระดับความซับซ้อน:</span>
                   <span className="badge-primary">
                     {complexityLabels[result.complexity]}
+                  </span>
+                </div>
+              )}
+              {category.supportsSubType && result.subType && (
+                <div className="flex justify-between items-center pb-3 border-b border-theme">
+                  <span className="text-theme-secondary font-medium text-sm">ประเภทงาน:</span>
+                  <span className="badge-primary">
+                    {result.subType === 'electric-highspeed' ? '🚄 รถไฟฟ้า / ความเร็วสูง' : '🚂 รถไฟทางไกล / รถไฟคู่'}
                   </span>
                 </div>
               )}

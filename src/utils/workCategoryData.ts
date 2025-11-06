@@ -11,7 +11,9 @@ export type WorkCategoryId =
 
 export type ComplexityLevel = 'simple' | 'complex' | 'veryComplex';
 
-export type RateValue = number | Record<ComplexityLevel, number>;
+export type RailTransportSubType = 'electric-highspeed' | 'longdistance-double';
+
+export type RateValue = number | Record<ComplexityLevel, number> | Record<RailTransportSubType, number>;
 
 export interface RateTier {
   maxBudget: number | null; // null = unlimited
@@ -26,6 +28,7 @@ export interface WorkCategory {
   description: string;
   tiers: RateTier[];
   supportsComplexity?: boolean;
+  supportsSubType?: boolean;
   specialtyDistribution?: {
     specialty: string;
     percentage: number;
@@ -74,10 +77,10 @@ export const WORK_CATEGORIES: Record<WorkCategoryId, WorkCategory> = {
     ],
     specialtyDistribution: [
       { specialty: 'สถาปัตยกรรม', percentage: 40 },
-      { specialty: 'โครงสร้าง', percentage: 20 },
+      { specialty: 'โครงสร้าง', percentage: 30 },
       { specialty: 'สุขาภิบาล', percentage: 15 },
-      { specialty: 'ไฟฟ้าและแสงสว่าง', percentage: 15 },
-      { specialty: 'ภูมิสถาปัตย์', percentage: 10 },
+      { specialty: 'ไฟฟ้าและแสงสว่าง', percentage: 10 },
+      { specialty: 'ภูมิสถาปัตย์', percentage: 5 },
     ],
   },
 
@@ -87,11 +90,52 @@ export const WORK_CATEGORIES: Record<WorkCategoryId, WorkCategory> = {
     name: 'งานขนส่งระบบราง',
     icon: '🚄',
     description: 'งานระบบรางรถไฟฟ้า รถไฟความเร็วสูง และรถไฟทางไกล',
+    supportsSubType: true,
     tiers: [
-      { maxBudget: 10_000_000_000, designRate: 2.25, supervisionRate: 5.5 },
-      { maxBudget: 30_000_000_000, designRate: 2, supervisionRate: 5 },
-      { maxBudget: 60_000_000_000, designRate: 1.75, supervisionRate: 4.5 },
-      { maxBudget: null, designRate: 1.25, supervisionRate: 3.5 },
+      {
+        maxBudget: 10_000_000_000,
+        designRate: {
+          'electric-highspeed': 2.25,
+          'longdistance-double': 2.0,
+        },
+        supervisionRate: {
+          'electric-highspeed': 5.5,
+          'longdistance-double': 5.0,
+        },
+      },
+      {
+        maxBudget: 30_000_000_000,
+        designRate: {
+          'electric-highspeed': 2.0,
+          'longdistance-double': 1.75,
+        },
+        supervisionRate: {
+          'electric-highspeed': 5.0,
+          'longdistance-double': 4.5,
+        },
+      },
+      {
+        maxBudget: 60_000_000_000,
+        designRate: {
+          'electric-highspeed': 1.75,
+          'longdistance-double': 1.5,
+        },
+        supervisionRate: {
+          'electric-highspeed': 4.5,
+          'longdistance-double': 4.0,
+        },
+      },
+      {
+        maxBudget: null,
+        designRate: {
+          'electric-highspeed': 1.25,
+          'longdistance-double': 1.0,
+        },
+        supervisionRate: {
+          'electric-highspeed': 3.5,
+          'longdistance-double': 3.0,
+        },
+      },
     ],
     specialtyDistribution: [
       { specialty: 'วิศวกรรมราง', percentage: 30 },
@@ -189,26 +233,39 @@ export function getWorkCategory(id: WorkCategoryId): WorkCategory {
   return WORK_CATEGORIES[id];
 }
 
-function resolveRate(value: RateValue, complexity?: ComplexityLevel): number {
+function resolveRate(
+  value: RateValue, 
+  complexity?: ComplexityLevel,
+  subType?: RailTransportSubType
+): number {
   if (typeof value === 'number') {
     return value;
   }
-  const level = complexity && value[complexity] !== undefined ? complexity : 'simple';
-  return value[level];
+  
+  // Check if it's a RailTransportSubType record
+  if (subType && 'electric-highspeed' in value) {
+    return (value as Record<RailTransportSubType, number>)[subType];
+  }
+  
+  // Otherwise it's a ComplexityLevel record
+  const complexityRecord = value as Record<ComplexityLevel, number>;
+  const level = complexity && complexityRecord[complexity] !== undefined ? complexity : 'simple';
+  return complexityRecord[level];
 }
 
 export function calculateRate(
   categoryId: WorkCategoryId,
   projectBudget: number,
   type: 'design' | 'supervision',
-  complexity?: ComplexityLevel
+  complexity?: ComplexityLevel,
+  subType?: RailTransportSubType
 ): { rate: number; tier: RateTier } {
   const category = WORK_CATEGORIES[categoryId];
   
   for (const tier of category.tiers) {
     if (tier.maxBudget === null || projectBudget <= tier.maxBudget) {
       const rateValue = type === 'design' ? tier.designRate : tier.supervisionRate;
-      const rate = resolveRate(rateValue, complexity);
+      const rate = resolveRate(rateValue, complexity, subType);
       return { rate, tier };
     }
   }
@@ -216,6 +273,6 @@ export function calculateRate(
   // Fallback to last tier
   const lastTier = category.tiers[category.tiers.length - 1];
   const lastRateValue = type === 'design' ? lastTier.designRate : lastTier.supervisionRate;
-  const rate = resolveRate(lastRateValue, complexity);
+  const rate = resolveRate(lastRateValue, complexity, subType);
   return { rate, tier: lastTier };
 }
